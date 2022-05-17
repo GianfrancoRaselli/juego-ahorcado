@@ -1,0 +1,23 @@
+{
+  "name": "juego-ahorcado",
+  "version": "1.0.0",
+  "description": "Juego del Ahorcado",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GianfrancoRaselli/juego-ahorcado.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GianfrancoRaselli/juego-ahorcado/issues"
+  },
+  "homepage": "https://github.com/GianfrancoRaselli/juego-ahorcado#readme",
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "request": "^2.88.2"
+  }
+}
