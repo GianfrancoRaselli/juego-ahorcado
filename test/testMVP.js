@@ -21,15 +21,21 @@ describe("Juego", () => {
   it("validar ingreso de letra correcta", () => {
     juego.definirPalabra(palabraAAdivinar);
 
-    const correcto = juego.validarLetra('t');
+    const correcto = juego.validarLetraEnPalabra('t');
     assert(correcto);
   });
 
   it("validar ingreso de letra incorrecta", () => {
     juego.definirPalabra(palabraAAdivinar);
 
-    const correcto = juego.validarLetra('a');
+    const correcto = juego.validarLetraEnPalabra('a');
     assert(!correcto);
   });
   
+  it("validar letra seleccionada repetida", () => {
+    juego.arriesgarLetra('a');
+
+    const correcto = juego.validarLetraSeleccionada('a');
+    assert(correcto);
+  });
 });
