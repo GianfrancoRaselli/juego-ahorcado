@@ -6,10 +6,23 @@ module.exports = class Juego {
 
   definirPalabra(palabra) {
     this.palabra = palabra;
+    this.letrasAcertadas = new Array(this.palabra.length);
   }
 
   arriesgarLetra(letra) {
-    this.letrasSeleccionadas.push(letra);
+    if (!this.validarLetraSeleccionada(letra)) {
+      this.letrasSeleccionadas.push(letra);
+
+      if (this.validarLetraEnPalabra(letra)) {
+        for (let i = 0; i < this.palabra.length; i++) {
+          if (this.palabra.charAt(i) === letra) this.letrasAcertadas[i] = letra;
+          return true;
+        }
+      } else {
+        // conteo de errores
+        return false;
+      }
+    }
   }
 
   validarLetraSeleccionada(letra) {

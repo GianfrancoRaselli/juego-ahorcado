@@ -33,9 +33,24 @@ describe("Juego", () => {
   });
   
   it("validar letra seleccionada repetida", () => {
+    juego.definirPalabra(palabraAAdivinar);
     juego.arriesgarLetra('a');
 
     const correcto = juego.validarLetraSeleccionada('a');
     assert(correcto);
+  });
+
+  it("arriesgar letra correcta", () => {
+    juego.definirPalabra(palabraAAdivinar);
+
+    const correcto = juego.arriesgarLetra('t');
+    assert(correcto);
+  });
+
+  it("arriesgar letra incorrecta", () => {
+    juego.definirPalabra(palabraAAdivinar);
+
+    const correcto = juego.arriesgarLetra('a');
+    assert(!correcto);
   });
 });
