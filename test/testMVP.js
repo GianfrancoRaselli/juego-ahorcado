@@ -81,4 +81,23 @@ describe("Juego", () => {
 
     assert(!juego.perdido);
   });
+
+  it("validar juego ganado", () => {
+    juego.definirPalabra('xyz');
+
+    juego.arriesgarLetra('x');
+    juego.arriesgarLetra('y');
+    juego.arriesgarLetra('z');
+
+    assert(juego.ganado);
+  });
+
+  it("validar juego no ganado", () => {
+    juego.definirPalabra('xyz');
+
+    juego.arriesgarLetra('x');
+    juego.arriesgarLetra('y');
+
+    assert(!juego.ganado);
+  });
 });

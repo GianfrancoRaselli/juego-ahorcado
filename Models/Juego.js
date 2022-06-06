@@ -18,8 +18,15 @@ module.exports = class Juego {
       if (this.validarLetraEnPalabra(letra)) {
         for (let i = 0; i < this.palabra.length; i++) {
           if (this.palabra.charAt(i) === letra) this.letrasAcertadas[i] = letra;
-          return true;
         }
+        
+        let gano = true;
+        for (let i = 0; i < this.letrasAcertadas.length; i++) {
+          if (!this.letrasAcertadas[i]) gano = false;
+        }
+        if (gano) this.ganado = true;
+
+        return true;
       } else {
         this.errores++;
         if (this.errores >= this.erroresPermitidos) this.perdido = true;
