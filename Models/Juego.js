@@ -35,6 +35,10 @@ module.exports = class Juego {
     }
   }
 
+  getLetrasAcertadas() {
+    return this.letrasAcertadas;
+  }
+
   validarLetraSeleccionada(letra) {
     let letraIngresada = false;
     this.letrasSeleccionadas.forEach(l => {

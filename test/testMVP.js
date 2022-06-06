@@ -1,4 +1,5 @@
 const assert = require("assert").strict;
+let expect = require('chai').expect;
 const Juego = require("../Models/Juego");
 
 let juego = null;
@@ -99,5 +100,13 @@ describe("Juego", () => {
     juego.arriesgarLetra('y');
 
     assert(!juego.ganado);
+  });
+
+  it("validar devolucion de letras acertadas", () => {
+    juego.definirPalabra('xyz');
+
+    juego.arriesgarLetra('y');
+
+    expect(juego.getLetrasAcertadas()).deep.to.equal([undefined, 'y', undefined]);
   });
 });
