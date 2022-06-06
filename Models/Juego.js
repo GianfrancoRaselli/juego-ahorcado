@@ -1,6 +1,7 @@
 module.exports = class Juego {
   constructor() {
     this.puntos = 0;
+    this.erroresPermitidos = 6; // cabeza, cuerpo, brazos, piernas
     this.letrasSeleccionadas = [];
   }
 
