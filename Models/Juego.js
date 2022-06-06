@@ -2,6 +2,7 @@ module.exports = class Juego {
   constructor() {
     this.puntos = 0;
     this.erroresPermitidos = 6; // cabeza, cuerpo, brazos, piernas
+    this.errores = 0;
     this.letrasSeleccionadas = [];
   }
 
@@ -20,7 +21,8 @@ module.exports = class Juego {
           return true;
         }
       } else {
-        // conteo de errores
+        this.errores++;
+        if (this.errores >= this.erroresPermitidos) this.perdido = true;
         return false;
       }
     }

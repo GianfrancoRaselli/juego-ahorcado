@@ -53,4 +53,32 @@ describe("Juego", () => {
     const correcto = juego.arriesgarLetra('a');
     assert(!correcto);
   });
+
+  it("validar juego perdido (superar errores maximos)", () => {
+    juego.definirPalabra('xyz');
+
+    juego.arriesgarLetra('a');
+    juego.arriesgarLetra('b');
+    juego.arriesgarLetra('c');
+    juego.arriesgarLetra('d');
+    juego.arriesgarLetra('e');
+    juego.arriesgarLetra('f');
+    juego.arriesgarLetra('g');
+
+    assert(juego.perdido);
+  });
+
+  it("validar juego no perdido (no superar errores maximos)", () => {
+    juego.definirPalabra('xyz');
+
+    juego.arriesgarLetra('a');
+    juego.arriesgarLetra('b');
+    juego.arriesgarLetra('x');
+    juego.arriesgarLetra('y');
+    juego.arriesgarLetra('e');
+    juego.arriesgarLetra('f');
+    juego.arriesgarLetra('g');
+
+    assert(!juego.perdido);
+  });
 });
