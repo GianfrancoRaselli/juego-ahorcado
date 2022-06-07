@@ -1,23 +1,25 @@
 module.exports = class Juego {
   constructor() {
+    this.id = 1;
+    this.idUsuario = 1;
     this.puntos = 0;
     this.erroresPermitidos = 6; // cabeza, cuerpo, brazos, piernas
-    this.errores = 0;
-    this.letrasSeleccionadas = [];
+    this.erroresAcumulados = 0;
+    this.letrasArriesgadas = [];
   }
 
-  definirPalabra(palabra) {
-    this.palabra = palabra;
-    this.letrasAcertadas = new Array(this.palabra.length);
+  definirPalabraAAdivinar(palabra) {
+    this.palabraAAdivinar = palabra;
+    this.letrasAcertadas = new Array(this.palabraAAdivinar.length);
   }
 
   arriesgarLetra(letra) {
-    if (!this.validarLetraSeleccionada(letra)) {
+    if (!this.validarLetraArriesgada(letra)) {
       this.letrasSeleccionadas.push(letra);
 
-      if (this.validarLetraEnPalabra(letra)) {
-        for (let i = 0; i < this.palabra.length; i++) {
-          if (this.palabra.charAt(i) === letra) this.letrasAcertadas[i] = letra;
+      if (this.validarLetraEnPalabraAAdivinar(letra)) {
+        for (let i = 0; i < this.palabraAAdivinar.length; i++) {
+          if (this.palabraAAdivinar.charAt(i) === letra) this.letrasAcertadas[i] = letra;
         }
         
         let gano = true;
@@ -28,20 +30,16 @@ module.exports = class Juego {
 
         return true;
       } else {
-        this.errores++;
-        if (this.errores >= this.erroresPermitidos) this.perdido = true;
+        this.erroresAcumulados++;
+        if (this.erroresAcumulados >= this.erroresPermitidos) this.perdido = true;
         return false;
       }
     }
   }
 
-  getLetrasAcertadas() {
-    return this.letrasAcertadas;
-  }
-
-  validarLetraSeleccionada(letra) {
+  validarLetraArriesgada(letra) {
     let letraIngresada = false;
-    this.letrasSeleccionadas.forEach(l => {
+    this.letrasArriesgadas.forEach(l => {
       if (l === letra) {
         letraIngresada = true;
       }
@@ -49,9 +47,9 @@ module.exports = class Juego {
     return letraIngresada;
   }
 
-  validarLetraEnPalabra(letra) {
-    for (let i = 0; i < this.palabra.length; i++) {
-      if (this.palabra.charAt(i) === letra) return true;
+  validarLetraEnPalabraAAdivinar(letra) {
+    for (let i = 0; i < this.palabraAAdivinar.length; i++) {
+      if (this.palabraAAdivinar.charAt(i) === letra) return true;
     }
     return false;
   }
