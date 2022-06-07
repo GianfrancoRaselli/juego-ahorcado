@@ -5,48 +5,56 @@ const Juego = require("../Models/Juego");
 let juego = null;
 let palabraAAdivinar = "xyz";
 
+
 beforeEach(() => {
   juego = new Juego();
   juego.definirPalabraAAdivinar("xyz");
 });
 
-describe("Juego", () => {
-  it("validar correcta instanciacion del juego", () => {
+
+describe("Configuraciones iniciales del juego", () => {
+  it("validar correcta instanciacion (creacion) del juego", () => {
     assert.notEqual(juego, null);
   });
 
   it("validar guardado de palabra a adivinar", () => {
     assert.equal(juego.palabraAAdivinar, palabraAAdivinar);
   });
+});
 
-  it("validar ingreso de letra correcta", () => {
+describe("Funciones auxiliares del juego", () => {
+  it("validar ingreso de una letra que se encuentre en la palabra a adivinar", () => {
     const correcto = juego.validarLetraEnPalabraAAdivinar('x');
     assert(correcto);
   });
 
-  it("validar ingreso de letra incorrecta", () => {
+  it("validar ingreso de una letra que NO se encuentre en la palabra a adivinar", () => {
     const correcto = juego.validarLetraEnPalabraAAdivinar('a');
     assert(!correcto);
   });
   
-  it("validar letra seleccionada repetida", () => {
+  it("validar letra arriesgada repetida (ya ingresada previamente)", () => {
     juego.arriesgarLetra('a');
 
     const correcto = juego.validarLetraArriesgada('a');
     assert(correcto);
   });
+});
 
-  it("arriesgar letra correcta", () => {
+describe("Arriesgar una letra", () => {
+  it("arriesgar letra que se encuentre en la palabra a adivinar", () => {
     const correcto = juego.arriesgarLetra('x');
     assert(correcto);
   });
 
-  it("arriesgar letra incorrecta", () => {
+  it("arriesgar letra que NO se encuentre en la palabra a adivinar", () => {
     const correcto = juego.arriesgarLetra('a');
     assert(!correcto);
   });
+});
 
-  it("validar juego perdido (superar errores maximos)", () => {
+describe("Juego perdido", () => {
+  it("validar juego perdido (supera errores maximos permitidos)", () => {
     juego.arriesgarLetra('a');
     juego.arriesgarLetra('b');
     juego.arriesgarLetra('c');
@@ -58,7 +66,7 @@ describe("Juego", () => {
     assert(juego.perdido);
   });
 
-  it("validar juego no perdido (no superar errores maximos)", () => {
+  it("validar juego NO perdido (NO supera errores maximos permitidos)", () => {
     juego.arriesgarLetra('a');
     juego.arriesgarLetra('b');
     juego.arriesgarLetra('x');
@@ -69,8 +77,10 @@ describe("Juego", () => {
 
     assert(!juego.perdido);
   });
+});
 
-  it("validar juego ganado", () => {
+describe("Juego ganado", () => {
+  it("validar juego ganado (se completa la totalidad de letras de la palabra adivinar)", () => {
     juego.arriesgarLetra('x');
     juego.arriesgarLetra('y');
     juego.arriesgarLetra('z');
@@ -78,14 +88,16 @@ describe("Juego", () => {
     assert(juego.ganado);
   });
 
-  it("validar juego no ganado", () => {
+  it("validar juego NO ganado (aun quedan letras NO adivinadas)", () => {
     juego.arriesgarLetra('x');
     juego.arriesgarLetra('y');
 
     assert(!juego.ganado);
   });
+});
 
-  it("validar devolucion de letras acertadas", () => {
+describe("Letras acertadas", () => {
+  it("validar devolucion de letras acertadas hasta el momento", () => {
     juego.arriesgarLetra('y');
 
     expect(juego.letrasAcertadas).deep.to.equal([undefined, 'y', undefined]);
