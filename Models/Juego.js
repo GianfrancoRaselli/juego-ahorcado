@@ -15,7 +15,7 @@ module.exports = class Juego {
 
   arriesgarLetra(letra) {
     if (!this.validarLetraArriesgada(letra)) {
-      this.letrasSeleccionadas.push(letra);
+      this.letrasArriesgadas.push(letra);
 
       if (this.validarLetraEnPalabraAAdivinar(letra)) {
         for (let i = 0; i < this.palabraAAdivinar.length; i++) {
@@ -36,6 +36,10 @@ module.exports = class Juego {
       }
     }
   }
+
+  /*getLetrasAcertadas() {
+    return this.letrasAcertadas;
+  }*/
 
   validarLetraArriesgada(letra) {
     let letraIngresada = false;
