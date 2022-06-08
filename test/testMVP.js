@@ -1,6 +1,6 @@
 const assert = require("assert").strict;
 const expect = require('chai').expect;
-const Juego = require("../models/Juego");
+const Juego = require("../src/models/Juego");
 
 let juego = null;
 let palabraAAdivinar = "xyz";
