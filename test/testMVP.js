@@ -114,3 +114,17 @@ describe("Juego terminado", () => {
     expect(letraAcertada).equal(undefined);
   });
 });
+
+describe("Arriesgar palabra", () => {
+  it("validar juego ganado al arriesgar una palabra correcta", () => {
+    juego.arriesgarPalabra(palabraAAdivinar);
+
+    assert(juego.ganado);
+  });
+
+  it("validar juego perdido al arriesgar una palabra incorrecta", () => {
+    juego.arriesgarPalabra('xy');
+
+    assert(juego.perdido);
+  });
+});
