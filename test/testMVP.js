@@ -103,3 +103,14 @@ describe("Letras acertadas", () => {
     expect(juego.letrasAcertadas).deep.to.equal([undefined, 'y', undefined]);
   });
 });
+
+describe("Juego terminado", () => {
+  it("validar que una vez terminado el juego (ganado o perdido) no se pueda seguir jugando", () => {
+    juego.arriesgarLetra('x');
+    juego.arriesgarLetra('y');
+    juego.arriesgarLetra('z');
+    const letraAcertada = juego.arriesgarLetra('z');
+
+    expect(letraAcertada).equal(undefined);
+  });
+});

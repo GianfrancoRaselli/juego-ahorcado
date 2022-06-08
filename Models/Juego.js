@@ -31,15 +31,13 @@ module.exports = class Juego {
         return true;
       } else {
         this.erroresAcumulados++;
+
         if (this.erroresAcumulados >= this.erroresPermitidos) this.perdido = true;
+        
         return false;
       }
     }
   }
-
-  /*getLetrasAcertadas() {
-    return this.letrasAcertadas;
-  }*/
 
   validarLetraArriesgada(letra) {
     let letraIngresada = false;
