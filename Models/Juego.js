@@ -14,27 +14,29 @@ module.exports = class Juego {
   }
 
   arriesgarLetra(letra) {
-    if (!this.validarLetraArriesgada(letra)) {
-      this.letrasArriesgadas.push(letra);
+    if (!(this.ganado || this.perdido)) {
+      if (!this.validarLetraArriesgada(letra)) {
+        this.letrasArriesgadas.push(letra);
 
-      if (this.validarLetraEnPalabraAAdivinar(letra)) {
-        for (let i = 0; i < this.palabraAAdivinar.length; i++) {
-          if (this.palabraAAdivinar.charAt(i) === letra) this.letrasAcertadas[i] = letra;
-        }
+        if (this.validarLetraEnPalabraAAdivinar(letra)) {
+          for (let i = 0; i < this.palabraAAdivinar.length; i++) {
+            if (this.palabraAAdivinar.charAt(i) === letra) this.letrasAcertadas[i] = letra;
+          }
         
-        let gano = true;
-        for (let i = 0; i < this.letrasAcertadas.length; i++) {
-          if (!this.letrasAcertadas[i]) gano = false;
+          let gano = true;
+          for (let i = 0; i < this.letrasAcertadas.length; i++) {
+            if (!this.letrasAcertadas[i]) gano = false;
+          }
+          if (gano) this.ganado = true;
+
+          return true;
+        } else {
+          this.erroresAcumulados++;
+
+          if (this.erroresAcumulados >= this.erroresPermitidos) this.perdido = true;
+
+          return false;
         }
-        if (gano) this.ganado = true;
-
-        return true;
-      } else {
-        this.erroresAcumulados++;
-
-        if (this.erroresAcumulados >= this.erroresPermitidos) this.perdido = true;
-        
-        return false;
       }
     }
   }
