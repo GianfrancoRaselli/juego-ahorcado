@@ -13,6 +13,14 @@ module.exports = class Juego {
     this.letrasAcertadas = new Array(this.palabraAAdivinar.length);
   }
 
+  arriesgarPalabra(palabra) {
+    if (this.palabraAAdivinar === palabra) {
+      this.ganado = true;
+    } else {
+      this.perdido = true;
+    }
+  }
+
   arriesgarLetra(letra) {
     if (!(this.ganado || this.perdido)) {
       if (!this.validarLetraArriesgada(letra)) {
