@@ -9,4 +9,26 @@ router.post("/iniciarNuevaPartida", (req, res) => {
   return res.status(200).json(juego);
 });
 
+router.post("/definirPalabraAAdivinar", (req, res) => {
+  const { palabraAAdivinar } = req.body;
+  juego.definirPalabraAAdivinar(palabraAAdivinar);
+  return res.status(200).json({ palabraAAdivinar: juego.palabraAAdivinar });
+});
+
+router.get("/letrasAcertadas", (req, res) => {
+  return res.status(200).json({ letrasAcertadas: juego.letrasAcertadas });
+});
+
+router.post("/arriesgarLetra", (req, res) => {
+  const { letra } = req.body;
+  juego.arriesgarLetra(letra);
+  return res.status(200).json({ letrasAcertadas: juego.letrasAcertadas });
+});
+
+router.post("/arriesgarPalabra", (req, res) => {
+  const { palabra } = req.body;
+  juego.arriesgarPalabra(palabra);
+  return res.status(200).json({ letrasAcertadas: juego.letrasAcertadas });
+});
+
 module.exports = router;
