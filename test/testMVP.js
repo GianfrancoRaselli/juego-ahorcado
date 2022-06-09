@@ -82,7 +82,7 @@ describe("Letras acertadas", () => {
   it("validar devolucion de letras acertadas hasta el momento", () => {
     juego.arriesgarLetra('y');
 
-    expect([undefined, 'y', undefined]).deep.to.equal(juego.letrasAcertadas);
+    expect(juego.letrasAcertadas).deep.to.equal([undefined, 'y', undefined]);
   });
 });
 
@@ -93,7 +93,7 @@ describe("Juego terminado", () => {
     juego.arriesgarLetra('z');
     const letraAcertada = juego.arriesgarLetra('z');
 
-    expect(undefined).equal(letraAcertada);
+    expect(letraAcertada).equal(undefined);
   });
 
   it("validar que una vez terminado el juego (perdido) no se pueda seguir jugando", () => {
@@ -106,7 +106,7 @@ describe("Juego terminado", () => {
     juego.arriesgarLetra('g');
     const letraAcertada = juego.arriesgarLetra('h');
 
-    expect(undefined).equal(letraAcertada);
+    expect(letraAcertada).equal(undefined);
   });
 });
 
@@ -114,14 +114,14 @@ describe("Arriesgar palabra", () => {
   it("validar juego ganado al arriesgar una palabra correcta", () => {
     const palabraAcertada = juego.arriesgarPalabra(palabraAAdivinar);
 
-    assert.notEqual(undefined, palabraAcertada);
+    assert.notEqual(palabraAcertada, undefined);
     assert(juego.ganado);
   });
 
   it("validar juego perdido al arriesgar una palabra incorrecta", () => {
     const palabraAcertada = juego.arriesgarPalabra('xy');
 
-    assert.notEqual(undefined, palabraAcertada);
+    assert.notEqual(palabraAcertada, undefined);
     assert(juego.perdido);
   });
 });
