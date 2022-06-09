@@ -9,54 +9,64 @@ module.exports = class Juego {
   }
 
   definirPalabraAAdivinar(palabra) {
-    this.palabraAAdivinar = palabra;
-    this.letrasAcertadas = new Array(this.palabraAAdivinar.length);
-  }
-
-  arriesgarPalabra(palabra) {
-    if (this.palabraAAdivinar === palabra) {
-      this.ganado = true;
-    } else {
-      this.perdido = true;
+    if (!this.palabraAAdivinar) {
+      this.palabraAAdivinar = palabra;
+      this.letrasAcertadas = new Array(this.palabraAAdivinar.length);
     }
   }
 
-  arriesgarLetra(letra) {
-    if (!(this.ganado || this.perdido)) {
-      if (!this.#validarLetraArriesgada(letra)) {
-        this.letrasArriesgadas.push(letra);
-
-        if (this.#validarLetraEnPalabraAAdivinar(letra)) {
-          for (let i = 0; i < this.palabraAAdivinar.length; i++) {
-            if (this.palabraAAdivinar.charAt(i) === letra) this.letrasAcertadas[i] = letra;
-          }
-        
-          let gano = true;
-          for (let i = 0; i < this.letrasAcertadas.length; i++) {
-            if (!this.letrasAcertadas[i]) gano = false;
-          }
-          if (gano) this.ganado = true;
-
+  arriesgarPalabra(palabra) {
+    if (this.palabraAAdivinar) {
+      if (!(this.ganado || this.perdido)) {
+        if (this.palabraAAdivinar === palabra) {
+          this.ganado = true;
           return true;
         } else {
-          this.erroresAcumulados++;
-
-          if (this.erroresAcumulados >= this.erroresPermitidos) this.perdido = true;
-
+          this.perdido = true;
           return false;
         }
       }
     }
   }
 
+  arriesgarLetra(letra) {
+    if (this.palabraAAdivinar) {
+      if (!(this.ganado || this.perdido)) {
+        if (!this.#validarLetraArriesgada(letra)) {
+          this.letrasArriesgadas.push(letra);
+
+          if (this.#validarLetraEnPalabraAAdivinar(letra)) {
+            for (let i = 0; i < this.palabraAAdivinar.length; i++) {
+              if (this.palabraAAdivinar.charAt(i) === letra) this.letrasAcertadas[i] = letra;
+            }
+
+            let gano = true;
+            for (let i = 0; i < this.letrasAcertadas.length; i++) {
+              if (!this.letrasAcertadas[i]) gano = false;
+            }
+            if (gano) this.ganado = true;
+
+            return true;
+          } else {
+            this.erroresAcumulados++;
+
+            if (this.erroresAcumulados > this.erroresPermitidos) this.perdido = true;
+
+            return false;
+          }
+        }
+      }
+    }
+  }
+
   #validarLetraArriesgada(letra) {
-    let letraIngresada = false;
+    let letraIngresadaPreviamente = false;
     this.letrasArriesgadas.forEach(l => {
       if (l === letra) {
-        letraIngresada = true;
+        letraIngresadaPreviamente = true;
       }
     });
-    return letraIngresada;
+    return letraIngresadaPreviamente;
   }
 
   #validarLetraEnPalabraAAdivinar(letra) {
