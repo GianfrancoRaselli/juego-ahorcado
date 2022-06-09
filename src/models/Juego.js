@@ -23,10 +23,10 @@ module.exports = class Juego {
 
   arriesgarLetra(letra) {
     if (!(this.ganado || this.perdido)) {
-      if (!this.validarLetraArriesgada(letra)) {
+      if (!this.#validarLetraArriesgada(letra)) {
         this.letrasArriesgadas.push(letra);
 
-        if (this.validarLetraEnPalabraAAdivinar(letra)) {
+        if (this.#validarLetraEnPalabraAAdivinar(letra)) {
           for (let i = 0; i < this.palabraAAdivinar.length; i++) {
             if (this.palabraAAdivinar.charAt(i) === letra) this.letrasAcertadas[i] = letra;
           }
@@ -49,7 +49,7 @@ module.exports = class Juego {
     }
   }
 
-  validarLetraArriesgada(letra) {
+  #validarLetraArriesgada(letra) {
     let letraIngresada = false;
     this.letrasArriesgadas.forEach(l => {
       if (l === letra) {
@@ -59,7 +59,7 @@ module.exports = class Juego {
     return letraIngresada;
   }
 
-  validarLetraEnPalabraAAdivinar(letra) {
+  #validarLetraEnPalabraAAdivinar(letra) {
     for (let i = 0; i < this.palabraAAdivinar.length; i++) {
       if (this.palabraAAdivinar.charAt(i) === letra) return true;
     }
