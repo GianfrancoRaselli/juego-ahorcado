@@ -34,10 +34,10 @@ describe("Test API del juego", () => {
   it("validar ruta de arriesgar una letra", (done) => {
     chai.request(url)
       .post('/arriesgarLetra')
-      .send({ letra: 'x' })
+      .send({ letra: 'y' })
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('letrasAcertadas').to.not.be.equal(undefined);
+        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal([null, 'y', null]);
         done();
       });
   });
@@ -58,7 +58,7 @@ describe("Test API del juego", () => {
       .send({ palabra: palabraAAdivinar })
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('letrasAcertadas').to.not.be.equal(undefined);
+        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal(['x', 'y', 'z']);
         done();
       });
   });
