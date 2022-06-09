@@ -19,6 +19,9 @@ module.exports = class Juego {
     if (this.palabraAAdivinar) {
       if (!(this.ganado || this.perdido)) {
         if (this.palabraAAdivinar === palabra) {
+          for (let i = 0; i < this.letrasAcertadas.length; i++) {
+            this.letrasAcertadas[i] = palabra.charAt(i);
+          }
           this.ganado = true;
           return true;
         } else {
