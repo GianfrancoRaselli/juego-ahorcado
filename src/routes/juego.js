@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const { authenticate } = require('../middlewares/auth');
 
 const Juego = require("../models/Juego");
 let juego = null;
 
-router.post("/iniciarNuevaPartida", (req, res) => {
+router.post("/iniciarNuevaPartida", authenticate, (req, res) => {
   juego = new Juego();
   return res.status(200).json(juego);
 });
 
-router.post("/definirPalabraAAdivinar", (req, res) => {
+router.post("/definirPalabraAAdivinar", authenticate, (req, res) => {
   const { palabraAAdivinar } = req.body;
   juego.definirPalabraAAdivinar(palabraAAdivinar);
   return res.status(200).json({ palabraAAdivinar: juego.palabraAAdivinar });

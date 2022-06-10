@@ -2,9 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const { authenticate } = require('./middlewares/auth');
+
+const dotenv = require('dotenv');
+dotenv.config();
 
 //initializations
-const PORT = 4000;
 const app = express();
 
 //middlewares
@@ -16,6 +20,15 @@ app.use(bodyParser.json());
 app.use('/juego', require('./routes/juego'));
 
 //starting the server
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server on port: ' + PORT);
+
+    mongoose.connect(process.env.MONGO_ATLAS_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => {
+        console.log('Atlas DB Connected');
+    })
+    .catch(err => console.log(err));
 });
