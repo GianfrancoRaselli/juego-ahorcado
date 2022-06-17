@@ -140,7 +140,7 @@ describe("Palabra a adivinar seteada", () => {
     const juego = new Juego();
     const letraAcertada = juego.arriesgarLetra('a');
 
-    assert.equal(letraAcertada, undefined);
+    assert.equal(letraAcertada, 5);
   });
 
   it("validar que no se pueda arriesgar una palabra si la palabra a adivinar no fue definida", () => {
