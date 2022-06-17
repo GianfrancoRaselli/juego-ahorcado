@@ -1,11 +1,12 @@
 const assert = require("assert").strict;
+const expect = require('chai').expect;
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const expect = require('chai').expect;
-
 chai.use(chaiHttp);
-const url = 'http://localhost:4000/juego';
+const dotenv = require('dotenv');
+dotenv.config();
 
+const url = 'http://localhost:' + process.env.PORT + '/juego';
 
 const palabraAAdivinar = "xyz";
 
