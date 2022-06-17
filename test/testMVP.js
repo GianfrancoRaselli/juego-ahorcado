@@ -14,7 +14,7 @@ beforeEach(() => {
 
 describe("Configuraciones iniciales del juego", () => {
   it("validar correcta instanciacion (creacion) del juego", () => {
-    assert.notEqual(null, null);
+    assert.notEqual(null, juego);
   });
 
   it("validar guardado de palabra a adivinar", () => {
