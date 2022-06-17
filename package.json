@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "start": "node src/index.js",
-    "start:watch": "nodemon src/index.js"
+    "start:watch": "nodemon src/index.js",
+    "ci": "start-server-and-test start http://localhost:8080 test"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "chai": "4.3.6",
     "mocha": "10.0.0",
     "nodemon": "2.0.16",
-    "request": "2.88.2"
+    "request": "2.88.2",
+    "start-server-and-test": "1.14.0"
   }
 }
