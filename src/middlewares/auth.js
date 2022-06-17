@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
-const { Usuario } = require('../models/index');
+const { Usuario } = require('../database/index');
 
 const authenticate = async (req, res, next) => {
+    return next();
     if (!req.headers.authorization) {
         return res.status(401).json("Access denied");
     } else {
@@ -14,7 +15,7 @@ const authenticate = async (req, res, next) => {
                 const usuario = await Usuario.findById(payload._id);
                 if (usuario) {
                     req.usuario = usuario;
-                    next();
+                    return next();
                 } else {
                     return res.status(401).json("Access denied");
                 }
