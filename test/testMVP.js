@@ -14,11 +14,11 @@ beforeEach(() => {
 
 describe("Configuraciones iniciales del juego", () => {
   it("validar correcta instanciacion (creacion) del juego", () => {
-    assert.notEqual(null, juego);
+    assert.notEqual(juego, null);
   });
 
   it("validar guardado de palabra a adivinar", () => {
-    assert.equal(palabraAAdivinar, juego.palabraAAdivinar);
+    assert.equal(juego.palabraAAdivinar, palabraAAdivinar);
   });
 });
 
@@ -115,14 +115,14 @@ describe("Arriesgar palabra", () => {
     const palabraAcertada = juego.arriesgarPalabra(palabraAAdivinar);
 
     expect(juego.letrasAcertadas).deep.to.equal(['x', 'y', 'z']);
-    assert.notEqual(undefined, palabraAcertada);
+    assert.notEqual(palabraAcertada, undefined);
     assert(juego.ganado);
   });
 
   it("validar juego perdido al arriesgar una palabra incorrecta", () => {
     const palabraAcertada = juego.arriesgarPalabra('xy');
 
-    assert.notEqual(undefined, palabraAcertada);
+    assert.notEqual(palabraAcertada, undefined);
     assert(juego.perdido);
   });
 });
@@ -132,21 +132,21 @@ describe("Palabra a adivinar seteada", () => {
     const nuevaPalabra = 'nueva';
     juego.definirPalabraAAdivinar(nuevaPalabra);
 
-    assert.notEqual(nuevaPalabra, juego.palabraAAdivinar);
-    assert.equal(palabraAAdivinar, juego.palabraAAdivinar);
+    assert.notEqual(juego.palabraAAdivinar, nuevaPalabra);
+    assert.equal(juego.palabraAAdivinar, palabraAAdivinar);
   });
 
   it("validar que no se pueda arriesgar una letra si la palabra a adivinar no fue definida", () => {
     const juego = new Juego();
     const letraAcertada = juego.arriesgarLetra('a');
 
-    assert.equal(undefined, letraAcertada);
+    assert.equal(letraAcertada, undefined);
   });
 
   it("validar que no se pueda arriesgar una palabra si la palabra a adivinar no fue definida", () => {
     const juego = new Juego();
     const palabraAcertada = juego.arriesgarPalabra('a');
 
-    assert.equal(undefined, palabraAcertada);
+    assert.equal(palabraAcertada, undefined);
   });
 });
