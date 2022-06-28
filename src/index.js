@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 //routes
 app.get('/', (req, res) => {
-    return res.status(200).json({ message: 'Server listeningg' });
+    return res.status(200).json({ message: 'Server listening' });
 });
 app.use('/juego', require('./routes/juego'));
 
