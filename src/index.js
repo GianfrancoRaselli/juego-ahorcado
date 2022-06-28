@@ -31,5 +31,5 @@ app.listen(process.env.PORT, () => {
     .then(() => {
         console.log('Atlas DB Connected');
     })
-    .catch(err => console.log(err))d;*/
+    .catch(err => console.log(err));*/
 });
