@@ -59,7 +59,7 @@ describe("Test API del juego", () => {
       .send({ palabra: palabraAAdivinar })
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal(['x', 'y', 'x']);
+        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal(['x', 'y', 'z']);
         done();
       });
   });
