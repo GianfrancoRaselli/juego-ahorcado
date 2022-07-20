@@ -1,8 +1,5 @@
 module.exports = class Juego {
   constructor() {
-    this.id = 1;
-    this.idUsuario = 1;
-    this.puntos = 0;
     this.erroresPermitidos = 6; // cabeza, cuerpo, brazos, piernas
     this.erroresAcumulados = 0;
     this.letrasArriesgadas = [];

@@ -1,5 +1,6 @@
 const Juego = require("../models/Juego");
-let juego = null;
+
+let juego;
 
 iniciarNuevaPartida = (req, res) => {
   juego = new Juego();

@@ -23,13 +23,4 @@ app.use('/juego', require('./routes/juego'));
 //starting the server
 app.listen(process.env.PORT, () => {
     console.log('Server on port: ' + process.env.PORT);
-
-    /*mongoose.connect(process.env.MONGO_ATLAS_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => {
-        console.log('Atlas DB Connected');
-    })
-    .catch(err => console.log(err));*/
 });
