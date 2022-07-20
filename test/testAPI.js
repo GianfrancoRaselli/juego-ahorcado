@@ -16,7 +16,7 @@ describe("Test API del juego", () => {
       .post('/iniciarNuevaPartida')
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('id').to.not.be.equal(undefined);
+        expect(res.body).to.have.property('erroresPermitidos').to.be.equal(6);
         done();
       });
   });

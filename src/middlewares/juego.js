@@ -1,6 +1,8 @@
-const { juego } = require('../controllers/juego');
+const { obtenerJuego } = require("../store/juego");
 
-const juegoIniciado = async (req, res, next) => {
+const juegoIniciado = (req, res, next) => {
+    const juego = obtenerJuego();
+
     if (!juego) return res.status(200).json("Partida no iniciada");
     return next();
 };

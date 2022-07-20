@@ -1,32 +1,30 @@
-const Juego = require("../models/Juego");
-
-let juego;
+const { obtenerJuego, crearNuevoJuego } = require("../store/juego");
 
 iniciarNuevaPartida = (req, res) => {
-  juego = new Juego();
+  const juego = crearNuevoJuego();
   return res.status(200).json(juego);
 };
 
 definirPalabraAAdivinar = (req, res) => {
   const { palabraAAdivinar } = req.body;
-  juego.definirPalabraAAdivinar(palabraAAdivinar);
-  return res.status(200).json({ palabraAAdivinar: juego.palabraAAdivinar });
+  obtenerJuego().definirPalabraAAdivinar(palabraAAdivinar);
+  return res.status(200).json({ palabraAAdivinar: obtenerJuego().palabraAAdivinar });
 };
 
 letrasAcertadas = (req, res) => {
-  return res.status(200).json({ letrasAcertadas: juego.letrasAcertadas });
+  return res.status(200).json({ letrasAcertadas: obtenerJuego().letrasAcertadas });
 };
 
 arriesgarLetra = (req, res) => {
   const { letra } = req.body;
-  juego.arriesgarLetra(letra);
-  return res.status(200).json({ letrasAcertadas: juego.letrasAcertadas });
+  obtenerJuego().arriesgarLetra(letra);
+  return res.status(200).json({ letrasAcertadas: obtenerJuego().letrasAcertadas });
 };
 
 arriesgarPalabra = (req, res) => {
   const { palabra } = req.body;
-  juego.arriesgarPalabra(palabra);
-  return res.status(200).json({ letrasAcertadas: juego.letrasAcertadas });
+  obtenerJuego().arriesgarPalabra(palabra);
+  return res.status(200).json({ letrasAcertadas: obtenerJuego().letrasAcertadas });
 };
 
-module.exports = { juego, iniciarNuevaPartida, definirPalabraAAdivinar, letrasAcertadas, arriesgarLetra, arriesgarPalabra };
+module.exports = { iniciarNuevaPartida, definirPalabraAAdivinar, letrasAcertadas, arriesgarLetra, arriesgarPalabra };
