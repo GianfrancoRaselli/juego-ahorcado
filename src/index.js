@@ -22,5 +22,5 @@ app.use('/juego', require('./routes/juego'));
 
 //starting the server
 app.listen(process.env.PORT, () => {
-    console.log('Server on port: ' + process.env.PORT);
+    console.log('Server listening on port: ' + process.env.PORT);
 });
