@@ -29,4 +29,4 @@ arriesgarPalabra = (req, res) => {
   return res.status(200).json({ letrasAcertadas: juego.letrasAcertadas });
 };
 
-module.exports = { iniciarNuevaPartida, definirPalabraAAdivinar, letrasAcertadas, arriesgarLetra, arriesgarPalabra };
+module.exports = { juego, iniciarNuevaPartida, definirPalabraAAdivinar, letrasAcertadas, arriesgarLetra, arriesgarPalabra };
