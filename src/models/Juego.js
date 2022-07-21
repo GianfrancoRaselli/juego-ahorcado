@@ -1,18 +1,18 @@
 module.exports = class Juego {
-  constructor() {
+  constructor () {
     this.erroresPermitidos = 6; // cabeza, cuerpo, brazos, piernas
     this.erroresAcumulados = 0;
     this.letrasArriesgadas = [];
   }
 
-  definirPalabraAAdivinar(palabra) {
+  definirPalabraAAdivinar (palabra) {
     if (!this.palabraAAdivinar) {
       this.palabraAAdivinar = palabra;
       this.letrasAcertadas = new Array(this.palabraAAdivinar.length);
     }
   }
 
-  arriesgarPalabra(palabra) {
+  arriesgarPalabra (palabra) {
     if (this.palabraAAdivinar) {
       if (!(this.ganado || this.perdido)) {
         if (this.palabraAAdivinar === palabra) {
@@ -29,7 +29,7 @@ module.exports = class Juego {
     }
   }
 
-  arriesgarLetra(letra) {
+  arriesgarLetra (letra) {
     if (this.palabraAAdivinar) {
       if (!(this.ganado || this.perdido)) {
         if (!this.#validarLetraArriesgada(letra)) {
@@ -59,7 +59,7 @@ module.exports = class Juego {
     }
   }
 
-  #validarLetraArriesgada(letra) {
+  #validarLetraArriesgada (letra) {
     let letraIngresadaPreviamente = false;
     this.letrasArriesgadas.forEach(l => {
       if (l === letra) {
@@ -69,7 +69,7 @@ module.exports = class Juego {
     return letraIngresadaPreviamente;
   }
 
-  #validarLetraEnPalabraAAdivinar(letra) {
+  #validarLetraEnPalabraAAdivinar (letra) {
     for (let i = 0; i < this.palabraAAdivinar.length; i++) {
       if (this.palabraAAdivinar.charAt(i) === letra) return true;
     }

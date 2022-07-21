@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { juegoIniciado } = require('../middlewares/juego');
+const { juegoIniciado } = require("../middlewares/juego");
 const { iniciarNuevaPartida, definirPalabraAAdivinar, letrasAcertadas, arriesgarLetra, arriesgarPalabra } = require("../controllers/juego");
 
 router.post("/iniciarNuevaPartida", iniciarNuevaPartida);
