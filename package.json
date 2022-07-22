@@ -6,7 +6,7 @@
   "scripts": {
     "eslint": "eslint src",
     "fix": "eslint src --fix",
-    "test": "nyc --reporter=lcov --reporter=text-summary mocha",
+    "test": "nyc mocha",
     "ci": "start-server-and-test 4000",
     "start": "node src/index.js",
     "start:watch": "nodemon src/index.js"
