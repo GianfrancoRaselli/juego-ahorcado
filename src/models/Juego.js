@@ -62,9 +62,7 @@ module.exports = class Juego {
   #validarLetraArriesgada (letra) {
     let letraIngresadaPreviamente = false;
     this.letrasArriesgadas.forEach(l => {
-      if (l === letra) {
-        letraIngresadaPreviamente = true;
-      }
+      if (l === letra) letraIngresadaPreviamente = true;
     });
     return letraIngresadaPreviamente;
   }

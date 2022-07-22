@@ -4,12 +4,12 @@
   "description": "Juego del Ahorcado",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
     "eslint": "eslint src",
     "fix": "eslint src --fix",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha",
+    "ci": "start-server-and-test 4000",
     "start": "node src/index.js",
-    "start:watch": "nodemon src/index.js",
-    "ci": "start-server-and-test 4000"
+    "start:watch": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "eslint-plugin-promise": "6.0.0",
     "mocha": "10.0.0",
     "nodemon": "2.0.16",
+    "nyc": "15.1.0",
     "request": "2.88.2",
     "start-server-and-test": "1.14.0"
   }
