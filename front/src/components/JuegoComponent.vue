@@ -1,7 +1,7 @@
 <template>
 
   <div class="vista1" v-if="vista == 1">
-    <div>
+    <b-container fluid>
       <b-form-group
         id="definirPalabra"
         class="m-4"
@@ -12,12 +12,13 @@
         :state="chequeoVacio"
       >
         <b-row>
-          <b-col cols="3">
+          <b-col cols="4">
             <b-form-input
               id="palabraAdivinar"
               class="my-2"
               v-model="palabraAAdivinar"
               placeholder="Palabra a adivinar"
+              type="password"
               :state="chequeoVacio" trim
             ></b-form-input>
           </b-col>
@@ -26,47 +27,74 @@
           </b-col>
         </b-row>
       </b-form-group>
-    </div>
+    </b-container>
   </div>
       
   <div id="vista2" v-else-if="vista == 2">
-  
-    <canvas id="ahorcado" width="200" height="300"></canvas>
-      <b-form-group
-        id="letra"
-        class="m-4"
-        label-size="lg"
-        label="Ingrese una letra"
-        label-for="letra"
-        :invalid-feedback="mensajeInvalido2"
-        :state="chequeoLetra"
-      >
-        <b-form-input
+    <b-container fluid>
+      <b-row class="my-4 mx-1">
+        <b-col cols="3">
+          <canvas id="ahorcado" width="200" height="250"></canvas>
+        </b-col>
+        <b-col>
+            <div class="h-25">
+              <span id="label">Letras Arriesgadas: &nbsp; &nbsp; &nbsp; &nbsp;</span>
+              <div class="col-1 d-inline-block" v-for="(letra, index) in arriesgadas" :key="index">
+                <p class="arriesgada">{{ letra }}</p>
+              </div>
+            </div>
+            <div class="h-25"></div>
+            <div id="acertadas" class="h-25">
+              <div class="col-1 d-inline-block" v-for="(letra, index) in acertadas" :key="index">
+                <p>{{ letra }}</p>
+              </div>
+            </div>
+            <div id="guiones" class="h-25">
+              <div class="col-1 d-inline-block" v-for="(index) in palabraAAdivinar.length" :key="index">
+                <span>_</span>
+              </div>
+            </div>
+        </b-col>
+      </b-row>
+      <!-- Arriesgar letra -->
+      <b-row>
+        <b-form-group
           id="letra"
-          class="my-2"
-          v-model="letra"
-          placeholder="Ingrese una letra"
-        ></b-form-input>
-        <b-button @click="arriesgarLetra" variant="primary" :state="chequeoVacio" :disabled="!chequeoLetra">Enviar</b-button>
-      </b-form-group>
+          class="m-4"
+          label-size="lg"
+          label="Ingrese una letra"
+          label-for="letra"
+          :invalid-feedback="mensajeInvalido2"
+          :state="chequeoLetra"
+        >
+          <b-form-input
+            id="letra"
+            class="my-2"
+            v-model="letra"
+            placeholder="Ingrese una letra"
+          ></b-form-input>
+          <b-button @click="arriesgarLetra" variant="primary" :state="chequeoVacio" :disabled="!chequeoLetra">Enviar</b-button>
+        </b-form-group>
 
-      <b-form-group
-        id="arriesgar"
-        class="m-4"
-        label-size="lg"
-        label="Ingrese una palabra"
-        label-for="arriesgar"
-        :state="chequeoVacio2"
-      >
-        <b-form-input
-          id="arriesgar"
-          class="my-2"
-          v-model="arriesgar"
-          placeholder="Ingrese una palabra"
-        ></b-form-input>
-        <b-button @click="arriesgarPalabra" variant="primary" :state="chequeoVacio" :disabled="!chequeoVacio2">Enviar</b-button>
-      </b-form-group>
-
+      <!-- Arriesgar palabra -->
+          <b-form-group
+            id="arriesgar"
+            class="m-4"
+            label-size="lg"
+            label="Ingrese una palabra"
+            label-for="arriesgar"
+            :state="chequeoVacio2"
+          >
+            <b-form-input
+              id="arriesgar"
+              class="my-2"
+              v-model="arriesgar"
+              placeholder="Ingrese una palabra"
+            ></b-form-input>
+            <b-button @click="arriesgarPalabra" variant="primary" :state="chequeoVacio" :disabled="!chequeoVacio2">Enviar</b-button>
+          </b-form-group>
+        </b-row>
+    </b-container>
   </div>
 
   <div id="vista3" v-else-if="gano || perdio">
@@ -95,6 +123,7 @@ export default {
       gano: false,
       perdio: false,
       acertadas: [],
+      arriesgadas: [],
       partes: [ 'cabeza', 'cuerpo', 'brazoDerecho', 'brazoIzquierdo', 'piernaDerecha', 'piernaIzquierda' ],
       step: 0,
       ctx: null,
@@ -105,12 +134,12 @@ export default {
   },
   methods:{
     iniciarNuevaPartida(){
-      axios.post('http://localhost/juego/iniciarNuevaPartida');
+      axios.post('https://juego-ahorcado-agiles.herokuapp.com/juego/iniciarNuevaPartida');
     },
     definirPalabra(){
       this.vista++;
       setTimeout( () => {this.cargarCanvas()}, 100);
-      axios.post('http://localhost/juego/definirPalabraAAdivinar', { 'palabra': this.palabraAAdivinar })
+      axios.post('https://juego-ahorcado-agiles.herokuapp.com/juego/definirPalabraAAdivinar', { 'palabra': this.palabraAAdivinar })
     },
     cargarCanvas(){
       const canvas = document.getElementById('ahorcado');
@@ -128,11 +157,11 @@ export default {
       this.ctx.stroke();
     },
     arriesgarLetra(){
-      axios.post('http://localhost/juego/arriesgarLetra', { 'letra': this.letra } )
-        .then( res => { this.step = res.data.errores, this.acertadas = res.data.letrasAcertadas, this.gano = res.data.gano, this.perdio = res.data.perdio });
+      axios.post('https://juego-ahorcado-agiles.herokuapp.com/juego/arriesgarLetra', { 'letra': this.letra } )
+        .then( res => { this.step = res.data.errores, this.acertadas = res.data.letrasAcertadas, this.gano = res.data.gano, this.perdio = res.data.perdio, this.arriesgadas.push(this.letra) });
     },
     arriesgarPalabra(){
-      axios.post('http://localhost/juego/arriesgarPalabra', { 'palabra': this.arriesgar })
+      axios.post('https://juego-ahorcado-agiles.herokuapp.com/juego/arriesgarPalabra', { 'palabra': this.arriesgar })
         .then(res => { this.step = 7, this.acertadas = res.data.letrasAcertadas, this.gano = res.data.gano, this.perdio = res.data.perdio });
     }
   },
@@ -216,7 +245,25 @@ export default {
 </script>
 
 <style scoped>
-canvas{
-  margin: 20px;
+span{
+  font-size: 60px;
+  font-weight: bold;
+}
+#label{
+  font-size: 30px;
+}
+p{
+  font-size: 40px;
+  font-weight: bold;
+}
+#acertadas{
+  margin-bottom: -120px;
+}
+#guiones{
+  margin-top: 40px;
+}
+h1{
+  margin-top: 20%;
+  text-align: center;
 }
 </style>
