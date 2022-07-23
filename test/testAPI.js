@@ -7,7 +7,7 @@ dotenv.config();
 
 const url = 'http://localhost:' + process.env.PORT + '/juego';
 
-const palabraAAdivinar = "xyz";
+const palabraAAdivinar = { palabra: "xyz"};
 
 describe("Test API del juego", () => {
   it("validar ruta de instanciacion de un nuevo juego", (done) => {
@@ -23,10 +23,11 @@ describe("Test API del juego", () => {
   it("validar ruta para definir una palabra a adivinar", (done) => {
     chai.request(url)
       .post('/definirPalabraAAdivinar')
-      .send({ palabraAAdivinar })
+      .send( { palabra : palabraAAdivinar.palabra } )
       .end(function (err, res) {
+        console.log(res.status);
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('palabraAAdivinar').to.be.equal(palabraAAdivinar);
+        expect(res.body).to.have.property('palabraAAdivinar').to.be.equal(palabraAAdivinar.palabra);
         done();
       });
   });
@@ -34,7 +35,7 @@ describe("Test API del juego", () => {
   it("validar ruta de arriesgar una letra", (done) => {
     chai.request(url)
       .post('/arriesgarLetra')
-      .send({ letra: 'y' })
+      .send({ letra: "y" })
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('letrasAcertadas').deep.to.equal([null, 'y', null]);
@@ -55,7 +56,7 @@ describe("Test API del juego", () => {
   it("validar ruta de arriesgar una palabra", (done) => {
     chai.request(url)
       .post('/arriesgarPalabra')
-      .send({ palabra: palabraAAdivinar })
+      .send({ palabra: palabraAAdivinar.palabra })
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('letrasAcertadas').deep.to.equal(['x', 'y', 'z']);

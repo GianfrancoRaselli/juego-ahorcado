@@ -3,6 +3,8 @@ module.exports = class Juego {
     this.erroresPermitidos = 6; // cabeza, cuerpo, brazos, piernas
     this.erroresAcumulados = 0;
     this.letrasArriesgadas = [];
+    this.ganado = false;
+    this.perdido = false;
   }
 
   definirPalabraAAdivinar (palabra) {

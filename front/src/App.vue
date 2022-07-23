@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <b-navbar type="dark" variant="dark">
+        <b-navbar-brand href="#" class="px-4">Ahorcado</b-navbar-brand>
+      </b-navbar>
+      <juego-component></juego-component>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import JuegoComponent from './components/JuegoComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    JuegoComponent
   }
 }
 </script>
 
 <style>
+@import'~bootstrap/dist/css/bootstrap.css';
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
 </style>
