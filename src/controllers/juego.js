@@ -2,7 +2,7 @@ const { obtenerJuego, crearNuevoJuego } = require("../store/juego");
 
 const iniciarNuevaPartida = (req, res) => {
   const juego = crearNuevoJuego();
-  return res.status(200).status(204).json();
+  return res.status(200).json(juego);
 };
 
 const definirPalabraAAdivinar = (req, res) => {

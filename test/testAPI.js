@@ -25,7 +25,6 @@ describe("Test API del juego", () => {
       .post('/definirPalabraAAdivinar')
       .send( { palabra : palabraAAdivinar.palabra } )
       .end(function (err, res) {
-        console.log(res.status);
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('palabraAAdivinar').to.be.equal(palabraAAdivinar.palabra);
         done();
