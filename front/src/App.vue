@@ -2,7 +2,7 @@
   <div id="app">
     <div>
       <b-navbar type="dark" variant="dark">
-        <b-navbar-brand href="#" class="px-4">Ahorcado</b-navbar-brand>
+        <b-navbar-brand class="px-4">Ahorcado</b-navbar-brand>
       </b-navbar>
       <juego-component></juego-component>
     </div>
