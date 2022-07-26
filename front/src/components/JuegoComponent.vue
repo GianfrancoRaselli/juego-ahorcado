@@ -49,7 +49,7 @@
             >
             <div
               class="col-1 d-inline-block"
-              v-for="(letra, index) in arriesgadas"
+              v-for="(letra, index) in juego.arriesgadas"
               :key="index"
             >
               <p class="arriesgada">{{ letra }}</p>
@@ -59,7 +59,7 @@
           <div id="acertadas" class="h-25">
             <div
               class="col-1 d-inline-block"
-              v-for="(letra, index) in acertadas"
+              v-for="(letra, index) in juego.acertadas"
               :key="index"
             >
               <p>{{ letra }}</p>
@@ -68,7 +68,7 @@
           <div id="guiones" class="h-25">
             <div
               class="col-1 d-inline-block"
-              v-for="index in palabraAAdivinar.length"
+              v-for="index in juego.palabra.length"
               :key="index"
             >
               <span>_</span>
@@ -76,6 +76,7 @@
           </div>
         </b-col>
       </b-row>
+
       <!-- Arriesgar letra -->
       <b-row>
         <b-form-group
@@ -129,13 +130,19 @@
     </b-container>
   </div>
 
-  <div id="vista3" v-else-if="gano || perdio">
-    <div v-if="gano">
+  <div id="vista3" v-else-if="juego.gano || juego.perdio">
+    <div v-if="juego.gano">
       <h1>Ganaste</h1>
     </div>
-    <div v-else-if="perdio">
+    <div v-else-if="juego.perdio">
       <h1>Perdiste</h1>
     </div>
+    <b-button
+      class="btn-nuevo-juego"
+      @click="iniciarNuevaPartida"
+      variant="primary"
+      >Iniciar nuevo juego</b-button
+    >
   </div>
 </template>
 
@@ -146,15 +153,16 @@ export default {
   name: "JuegoComponent",
   data() {
     return {
-      vista: 1,
       palabraAAdivinar: "",
-      arriesgar: "",
       letra: "",
-      adivinar: "",
-      gano: false,
-      perdio: false,
-      acertadas: [],
-      arriesgadas: [],
+      arriesgar: "",
+      juego: {
+        palabra: "",
+        gano: false,
+        perdio: false,
+        acertadas: [],
+        arriesgadas: [],
+      },
       partes: [
         "cabeza",
         "cuerpo",
@@ -167,62 +175,35 @@ export default {
       ctx: null,
     };
   },
-  async mounted() {
-    const res = await axios.get("/juego/juegoActual");
-    const juegoActual = res.data.juegoActual;
-    
-    if (!juegoActual) {
-      this.iniciarNuevaPartida();
-    } else {
-      // 
-    }
-  },
-  methods: {
-    iniciarNuevaPartida() {
-      axios.post("/juego/iniciarNuevaPartida");
+  computed: {
+    vista() {
+      let vista = 1;
+      if (this.juego.palabra) vista = 2;
+      if (this.juego.gano || this.juego.perdio) vista = 3;
+      return vista;
     },
-    definirPalabra() {
-      this.vista++;
-      setTimeout(() => {
-        this.cargarCanvas();
-      }, 100);
-      axios.post("/juego/definirPalabraAAdivinar", {
-        palabra: this.palabraAAdivinar,
-      });
+    chequeoVacio() {
+      return this.palabraAAdivinar.length !== 0;
     },
-    cargarCanvas() {
-      const canvas = document.getElementById("ahorcado");
-      this.ctx = canvas.getContext("2d");
-      this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.ctx.strokeStyle = "#444";
-      this.ctx.lineWidth = 10;
-      this.ctx.beginPath();
-      this.ctx.moveTo(175, 225);
-      this.ctx.lineTo(5, 225);
-      this.ctx.moveTo(40, 225);
-      this.ctx.lineTo(25, 5);
-      this.ctx.lineTo(100, 5);
-      this.ctx.lineTo(100, 25);
-      this.ctx.stroke();
+    chequeoVacio2() {
+      return this.arriesgar.length !== 0;
     },
-    arriesgarLetra() {
-      axios.post("/juego/arriesgarLetra", { letra: this.letra }).then((res) => {
-        (this.step = res.data.errores),
-          (this.acertadas = res.data.letrasAcertadas),
-          (this.gano = res.data.gano),
-          (this.perdio = res.data.perdio),
-          this.arriesgadas.push(this.letra);
-      });
+    mensajeInvalido() {
+      if (this.palabraAAdivinar.length === 0) {
+        return "Ingrese alguna palabra";
+      }
+      return "";
     },
-    arriesgarPalabra() {
-      axios
-        .post("/juego/arriesgarPalabra", { palabra: this.arriesgar })
-        .then((res) => {
-          (this.step = 7),
-            (this.acertadas = res.data.letrasAcertadas),
-            (this.gano = res.data.gano),
-            (this.perdio = res.data.perdio);
-        });
+    chequeoLetra() {
+      return this.letra.length === 1;
+    },
+    mensajeInvalido2() {
+      if (this.letra.length > 1) {
+        return "Ingrese solo una letra";
+      } else if (this.letra.length === 0) {
+        return "";
+      }
+      return "";
     },
   },
   watch: {
@@ -267,37 +248,91 @@ export default {
           break;
       }
     },
-    gano() {
-      this.vista++;
+  },
+  methods: {
+    async iniciarNuevaPartida() {
+      await axios.post("/juego/iniciarNuevaPartida");
+      this.palabraAAdivinar = "";
+      this.letra = "";
+      this.arriesgar = "";
+      this.juego = {
+        palabra: "",
+        gano: false,
+        perdio: false,
+        acertadas: [],
+        arriesgadas: [],
+      };
+      this.step = 0;
+      this.ctx = null;
     },
-    perdio() {
-      this.vista++;
+    async definirPalabra() {
+      const res = await axios.post("/juego/definirPalabraAAdivinar", {
+        palabra: this.palabraAAdivinar,
+      });
+      this.juego.palabra = res.data.palabraAAdivinar;
+      setTimeout(() => {
+        this.cargarCanvas();
+      }, 100);
+    },
+    cargarCanvas() {
+      const canvas = document.getElementById("ahorcado");
+      this.ctx = canvas.getContext("2d");
+      this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+      this.ctx.strokeStyle = "#444";
+      this.ctx.lineWidth = 10;
+      this.ctx.beginPath();
+      this.ctx.moveTo(175, 225);
+      this.ctx.lineTo(5, 225);
+      this.ctx.moveTo(40, 225);
+      this.ctx.lineTo(25, 5);
+      this.ctx.lineTo(100, 5);
+      this.ctx.lineTo(100, 25);
+      this.ctx.stroke();
+    },
+    arriesgarLetra() {
+      axios.post("/juego/arriesgarLetra", { letra: this.letra }).then((res) => {
+        (this.step = res.data.errores),
+          (this.juego.acertadas = res.data.letrasAcertadas),
+          (this.juego.gano = res.data.gano),
+          (this.juego.perdio = res.data.perdio),
+          this.juego.arriesgadas.push(this.letra);
+      });
+    },
+    arriesgarPalabra() {
+      axios
+        .post("/juego/arriesgarPalabra", { palabra: this.arriesgar })
+        .then((res) => {
+          (this.step = 7),
+            (this.juego.acertadas = res.data.letrasAcertadas),
+            (this.juego.gano = res.data.gano),
+            (this.juego.perdio = res.data.perdio);
+        });
     },
   },
-  computed: {
-    chequeoVacio() {
-      return this.palabraAAdivinar.length !== 0;
-    },
-    chequeoVacio2() {
-      return this.arriesgar.length !== 0;
-    },
-    mensajeInvalido() {
-      if (this.palabraAAdivinar.length === 0) {
-        return "Ingrese alguna palabra";
-      }
-      return "";
-    },
-    chequeoLetra() {
-      return this.letra.length === 1;
-    },
-    mensajeInvalido2() {
-      if (this.letra.length > 1) {
-        return "Ingrese solo una letra";
-      } else if (this.letra.length === 0) {
-        return "";
-      }
-      return "";
-    },
+  async mounted() {
+    const res = await axios.get("/juego/juegoActual");
+    const juegoActual = res.data.juegoActual;
+
+    if (!juegoActual) {
+      this.iniciarNuevaPartida();
+    } else {
+      this.juego = {
+        palabra: juegoActual.palabraAAdivinar,
+        gano: juegoActual.ganado,
+        perdio: juegoActual.perdido,
+        acertadas: juegoActual.letrasAcertadas,
+        arriesgadas: juegoActual.letrasArriesgadas,
+      };
+      if (this.vista === 2)
+        setTimeout(() => {
+          this.cargarCanvas();
+          for (let i = 0; i <= juegoActual.erroresAcumulados; i++) {
+            setTimeout(() => {
+              this.step = i;
+            }, 100);
+          }
+        }, 100);
+    }
   },
 };
 </script>
@@ -323,5 +358,15 @@ p {
 h1 {
   margin-top: 20%;
   text-align: center;
+}
+#vista3 {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.btn-nuevo-juego {
+  margin: auto;
+  margin-top: 50px;
+  width: 220px;
 }
 </style>

@@ -1,6 +1,9 @@
 const { defineConfig } = require("@vue/cli-service");
 
-const PROXY = "http://localhost:" + process.env.PORT || 4000;
+let PORT = 4000;
+if (process && process.env && process.env.PORT) PORT = process.env.PORT;
+
+const PROXY = "http://localhost:" + PORT;
 
 module.exports = defineConfig({
   transpileDependencies: true,
