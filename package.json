@@ -7,6 +7,7 @@
     "eslint": "eslint src",
     "fix": "eslint src --fix",
     "test": "nyc mocha",
+    "build": "cd front && npm run build",
     "ci": "start-server-and-test 4000",
     "start": "node src/index.js",
     "start:watch": "nodemon src/index.js"
