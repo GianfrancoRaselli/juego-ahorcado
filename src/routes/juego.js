@@ -6,7 +6,7 @@ const { iniciarNuevaPartida, definirPalabraAAdivinar, juegoActual, letrasAcertad
 
 router.post("/iniciarNuevaPartida", juegoActualTerminado, iniciarNuevaPartida);
 router.post("/definirPalabraAAdivinar", juegoIniciado, definirPalabraAAdivinar);
-router.get("/juegoActual", juegoIniciado, juegoActual);
+router.get("/juegoActual", juegoActual);
 router.get("/letrasAcertadas", juegoIniciado, letrasAcertadas);
 router.post("/arriesgarLetra", juegoIniciado, arriesgarLetra);
 router.post("/arriesgarPalabra", juegoIniciado, arriesgarPalabra);
