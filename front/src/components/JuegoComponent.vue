@@ -168,9 +168,13 @@ export default {
     };
   },
   async mounted() {
-    const juegoActual = axios.get("/juego/juegoActual");
+    const res = await axios.get("/juego/juegoActual");
+    const juegoActual = res.data.juegoActual;
+    
     if (!juegoActual) {
       this.iniciarNuevaPartida();
+    } else {
+      // 
     }
   },
   methods: {
@@ -217,7 +221,7 @@ export default {
           (this.step = 7),
             (this.acertadas = res.data.letrasAcertadas),
             (this.gano = res.data.gano),
-            (this.perdio = res.data.perdio);console.log(res);
+            (this.perdio = res.data.perdio);
         });
     },
   },
