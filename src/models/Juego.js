@@ -9,17 +9,18 @@ module.exports = class Juego {
 
   definirPalabraAAdivinar (palabra) {
     if (!this.palabraAAdivinar) {
-      this.palabraAAdivinar = palabra;
+      this.palabraAAdivinar = palabra.toUpperCase();
       this.letrasAcertadas = new Array(this.palabraAAdivinar.length);
     }
   }
 
   arriesgarPalabra (palabra) {
+    const palabraMayusculas = palabra.toUpperCase();
     if (this.palabraAAdivinar) {
       if (!(this.ganado || this.perdido)) {
-        if (this.palabraAAdivinar === palabra) {
+        if (this.palabraAAdivinar === palabraMayusculas) {
           for (let i = 0; i < this.letrasAcertadas.length; i++) {
-            this.letrasAcertadas[i] = palabra.charAt(i);
+            this.letrasAcertadas[i] = palabraMayusculas.charAt(i);
           }
           this.ganado = true;
           return true;
@@ -32,14 +33,15 @@ module.exports = class Juego {
   }
 
   arriesgarLetra (letra) {
+    const letraMayuscula = letra.toUpperCase();
     if (this.palabraAAdivinar) {
       if (!(this.ganado || this.perdido)) {
-        if (!this.#validarLetraArriesgada(letra)) {
-          this.letrasArriesgadas.push(letra);
+        if (!this.#validarLetraArriesgada(letraMayuscula)) {
+          this.letrasArriesgadas.push(letraMayuscula);
 
-          if (this.#validarLetraEnPalabraAAdivinar(letra)) {
+          if (this.#validarLetraEnPalabraAAdivinar(letraMayuscula)) {
             for (let i = 0; i < this.palabraAAdivinar.length; i++) {
-              if (this.palabraAAdivinar.charAt(i) === letra) this.letrasAcertadas[i] = letra;
+              if (this.palabraAAdivinar.charAt(i) === letraMayuscula) this.letrasAcertadas[i] = letraMayuscula;
             }
 
             let gano = true;
@@ -62,16 +64,18 @@ module.exports = class Juego {
   }
 
   #validarLetraArriesgada (letra) {
+    const letraMayuscula = letra.toUpperCase();
     let letraIngresadaPreviamente = false;
     this.letrasArriesgadas.forEach(l => {
-      if (l === letra) letraIngresadaPreviamente = true;
+      if (l === letraMayuscula) letraIngresadaPreviamente = true;
     });
     return letraIngresadaPreviamente;
   }
 
   #validarLetraEnPalabraAAdivinar (letra) {
+    const letraMayuscula = letra.toUpperCase();
     for (let i = 0; i < this.palabraAAdivinar.length; i++) {
-      if (this.palabraAAdivinar.charAt(i) === letra) return true;
+      if (this.palabraAAdivinar.charAt(i) === letraMayuscula) return true;
     }
     return false;
   }

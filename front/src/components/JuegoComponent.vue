@@ -20,6 +20,7 @@
               type="password"
               :state="chequeoVacio"
               trim
+              v-on:keyup="palabraAAdivinar = palabraAAdivinar.toUpperCase()"
             ></b-form-input>
           </b-col>
           <b-col>
@@ -93,6 +94,7 @@
             class="my-2"
             v-model="letra"
             placeholder="Ingrese una letra"
+            v-on:keyup="letra = letra.toUpperCase()"
           ></b-form-input>
           <b-button
             @click="arriesgarLetra"
@@ -117,6 +119,7 @@
             class="my-2"
             v-model="arriesgar"
             placeholder="Ingrese una palabra"
+            v-on:keyup="arriesgar = arriesgar.toUpperCase()"
           ></b-form-input>
           <b-button
             @click="arriesgarPalabra"
