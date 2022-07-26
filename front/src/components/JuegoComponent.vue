@@ -171,8 +171,6 @@ export default {
     const juegoActual = axios.get("/juego/juegoActual");
     if (!juegoActual) {
       this.iniciarNuevaPartida();
-    } else {
-      //
     }
   },
   methods: {
