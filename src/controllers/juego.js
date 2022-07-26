@@ -12,6 +12,10 @@ const definirPalabraAAdivinar = (req, res) => {
   return res.status(200).json({ palabraAAdivinar: obtenerJuego().palabraAAdivinar });
 };
 
+const juegoActual = (req, res) => {
+  return res.status(200).json({ juegoActual: obtenerJuego() });
+};
+
 const letrasAcertadas = (req, res) => {
   return res.status(200).json({ letrasAcertadas: obtenerJuego().letrasAcertadas });
 };
@@ -30,4 +34,4 @@ const arriesgarPalabra = (req, res) => {
   return res.status(200).json({ letrasAcertadas: obtenerJuego().letrasAcertadas, gano: obtenerJuego().ganado, perdio: obtenerJuego().perdido });
 };
 
-module.exports = { iniciarNuevaPartida, definirPalabraAAdivinar, letrasAcertadas, arriesgarLetra, arriesgarPalabra };
+module.exports = { iniciarNuevaPartida, definirPalabraAAdivinar, juegoActual, letrasAcertadas, arriesgarLetra, arriesgarPalabra };

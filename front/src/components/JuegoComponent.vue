@@ -167,8 +167,13 @@ export default {
       ctx: null,
     };
   },
-  mounted() {
-    this.iniciarNuevaPartida();
+  async mounted() {
+    const juegoActual = axios.get("/juego/juegoActual");
+    if (!juegoActual) {
+      this.iniciarNuevaPartida();
+    } else {
+      //
+    }
   },
   methods: {
     iniciarNuevaPartida() {
