@@ -217,7 +217,7 @@ export default {
           (this.step = 7),
             (this.acertadas = res.data.letrasAcertadas),
             (this.gano = res.data.gano),
-            (this.perdio = res.data.perdio);
+            (this.perdio = res.data.perdio);console.log(res);
         });
     },
   },
