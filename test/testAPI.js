@@ -7,7 +7,7 @@ dotenv.config();
 
 const url = 'http://localhost:' + process.env.PORT + '/juego';
 
-const palabraAAdivinar = { palabra: "xyz"};
+const palabraAAdivinar = { palabra: "XYZ" };
 
 describe("Test API del juego", () => {
   it("validar ruta de instanciacion de un nuevo juego", (done) => {
@@ -23,7 +23,7 @@ describe("Test API del juego", () => {
   it("validar ruta para definir una palabra a adivinar", (done) => {
     chai.request(url)
       .post('/definirPalabraAAdivinar')
-      .send( { palabra : palabraAAdivinar.palabra } )
+      .send({ palabra : palabraAAdivinar.palabra })
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('palabraAAdivinar').to.be.equal(palabraAAdivinar.palabra);
@@ -34,10 +34,10 @@ describe("Test API del juego", () => {
   it("validar ruta de arriesgar una letra", (done) => {
     chai.request(url)
       .post('/arriesgarLetra')
-      .send({ letra: "y" })
+      .send({ letra: "Y" })
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal([null, 'y', null]);
+        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal([null, 'Y', null]);
         done();
       });
   });
@@ -48,6 +48,7 @@ describe("Test API del juego", () => {
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('letrasAcertadas').to.not.be.equal(undefined);
+        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal([null, 'Y', null]);
         done();
       });
   });
@@ -58,7 +59,7 @@ describe("Test API del juego", () => {
       .send({ palabra: palabraAAdivinar.palabra })
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal(['x', 'y', 'z']);
+        expect(res.body).to.have.property('letrasAcertadas').deep.to.equal(['X', 'Y', 'Z']);
         done();
       });
   });
