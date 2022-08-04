@@ -10,7 +10,8 @@
     "build": "cd front && npm install && npm run build",
     "ci": "start-server-and-test 4000",
     "start": "node src/index.js",
-    "start:watch": "nodemon src/index.js"
+    "start:watch": "nodemon src/index.js",
+    "cy": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,8 @@
   },
   "devDependencies": {
     "chai": "4.3.6",
+    "cypress": "^10.4.0",
+    "cypress-cucumber-preprocessor": "^4.3.1",
     "eslint": "8.20.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.26.0",
@@ -44,5 +47,8 @@
     "nyc": "15.1.0",
     "request": "2.88.2",
     "start-server-and-test": "1.14.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
   }
 }
