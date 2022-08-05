@@ -25,6 +25,7 @@
           </b-col>
           <b-col>
             <b-button
+              id="buttonEnviar"
               @click="definirPalabra"
               class="m-2"
               variant="primary"
@@ -97,6 +98,7 @@
             v-on:keyup="letra = letra.toUpperCase()"
           ></b-form-input>
           <b-button
+            id="buttonLetra"
             @click="arriesgarLetra"
             variant="primary"
             :state="chequeoVacio"
@@ -122,6 +124,7 @@
             v-on:keyup="arriesgar = arriesgar.toUpperCase()"
           ></b-form-input>
           <b-button
+            id="buttonArriesgar"
             @click="arriesgarPalabra"
             variant="primary"
             :state="chequeoVacio"

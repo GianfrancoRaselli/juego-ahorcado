@@ -6,6 +6,7 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:4000",
     chromeWebSecurity: false,
     specPattern: "**/*.feature",
+    supportFile: false,
     setupNodeEvents(on, config) {
       on('file:preprocessor', cucumber())
     },
