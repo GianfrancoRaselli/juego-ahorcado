@@ -5,9 +5,7 @@ Given('I enter the homepage', () => {
 })
 
 When('I write the word {string}', (word) => {
-    console.log(word)
     cy.get('input[id="palabraAdivinar"]').type(word)
-    console.log(word)
 })
 
 And('I click on send button', () => {
