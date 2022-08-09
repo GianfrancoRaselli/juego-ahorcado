@@ -63,7 +63,7 @@ module.exports = class Juego {
     }
   }
 
-  #validarLetraArriesgada (letra) {
+  validarLetraArriesgada (letra) {
     const letraMayuscula = letra.toUpperCase();
     let letraIngresadaPreviamente = false;
     this.letrasArriesgadas.forEach(l => {
@@ -72,7 +72,7 @@ module.exports = class Juego {
     return letraIngresadaPreviamente;
   }
 
-  #validarLetraEnPalabraAAdivinar (letra) {
+  validarLetraEnPalabraAAdivinar (letra) {
     const letraMayuscula = letra.toUpperCase();
     for (let i = 0; i < this.palabraAAdivinar.length; i++) {
       if (this.palabraAAdivinar.charAt(i) === letraMayuscula) return true;
