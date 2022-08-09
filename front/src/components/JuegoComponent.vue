@@ -144,6 +144,7 @@
       <h1>Perdiste</h1>
     </div>
     <b-button
+      id="buttonRestart"
       class="btn-nuevo-juego"
       @click="iniciarNuevaPartida"
       variant="primary"

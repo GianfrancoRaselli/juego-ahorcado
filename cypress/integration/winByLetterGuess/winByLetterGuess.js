@@ -22,4 +22,5 @@ And('I click on guess button', () => {
 
 Then('I should win', () => {
     cy.contains('Ganaste')
+    cy.get('button[id="buttonRestart"]').click()
 })

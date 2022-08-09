@@ -10,5 +10,9 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       on('file:preprocessor', cucumber())
     },
+    video: false,
+    videoCompression: false,
+    videoUploadOnPasses: false,
+    screenshotOnRunFailure: false,
   },
 });
