@@ -7,13 +7,13 @@
     "eslint": "eslint src",
     "fix": "eslint src --fix",
     "test": "nyc mocha",
-    "build": "cd front && npm install && npm run build",
     "ci": "start-server-and-test 4000",
-    "start": "node src/index.js",
-    "start:watch": "nodemon src/index.js",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:ci": "start-server-and-test 4000 cy:run"
+    "cy:ci": "start-server-and-test 4000 cy:run",
+    "build": "cd front && npm install && npm run build",
+    "start": "node src/index.js",
+    "start:watch": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
