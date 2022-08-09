@@ -13,7 +13,7 @@
     "start:watch": "nodemon src/index.js",
     "cy:open": "cypress open",
     "cy:run": "cypress run --spec cypress/integration/*.feature",
-    "cy:ci": "start-server-and-test start-server 4000 cy:run"
+    "cy:ci": "start-server-and-test 4000 cy:run"
   },
   "repository": {
     "type": "git",
