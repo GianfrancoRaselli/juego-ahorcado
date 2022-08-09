@@ -11,7 +11,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:ci": "start-server-and-test 4000 cy:run",
-    "build": "cd front && npm install && npm run build",
+    "build": "cd front && npm install --force && npm run build",
     "start": "node src/index.js",
     "start:watch": "nodemon src/index.js"
   },
