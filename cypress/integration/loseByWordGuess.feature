@@ -5,6 +5,6 @@ Feature: Lose By Word Guess
         Given I enter the homepage
         When I write the word "palabra"
             And I click on send button
-            And I guess the word "palabra"
+            And I guess the word "palabro"
             And I click on guess button
         Then I should lose
