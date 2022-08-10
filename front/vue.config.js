@@ -6,9 +6,8 @@ if (process && process.env && process.env.PORT) PORT = process.env.PORT;
 const PROXY = "http://localhost:" + PORT;
 
 module.exports = defineConfig({
-  transpileDependencies: true,
+  transpileDependencies: false,
   devServer: {
     proxy: PROXY,
   },
-  compact: true
 });
