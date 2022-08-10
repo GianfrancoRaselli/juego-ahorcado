@@ -10,7 +10,4 @@ module.exports = defineConfig({
   devServer: {
     proxy: PROXY,
   },
-  babel: {
-    compact: true,
-  },
 });
