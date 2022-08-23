@@ -12,9 +12,9 @@
     "cy:run": "cypress run",
     "cy:ci": "start-server-and-test 4000 cy:run",
     "build": "cd front && npm install && npm run build",
-    "start:build": "npm run build && node src/index.js",
     "start": "node src/index.js",
-    "start:watch": "nodemon src/index.js"
+    "start:watch": "nodemon src/index.js",
+    "start:build": "npm run build && node src/index.js"
   },
   "repository": {
     "type": "git",
