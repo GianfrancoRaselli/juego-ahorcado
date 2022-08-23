@@ -36,4 +36,4 @@ app.use("*", (req, res) => {
 // starting the server
 app.listen(process.env.PORT || port, () => {
   console.log("Server listening on port: " + process.env.PORT || port);
-});
+})
