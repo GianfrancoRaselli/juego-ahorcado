@@ -5,7 +5,7 @@
         id="definirPalabra"
         class="m-4"
         label-size="lg"
-        label="Ingrese la palabra "
+        label="Ingrese una palabra "
         label-for="palabraAdivinar"
         :invalid-feedback="mensajeInvalido"
         :state="chequeoVacio"
