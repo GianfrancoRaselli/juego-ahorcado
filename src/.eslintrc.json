@@ -6,11 +6,12 @@
         "es2021": true
     },
     "extends": [
-        "standard"
+        "standard" // configuracion predefinida
     ],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
+    // reglas definidas por el usuario
     "rules": {
         "semi": ["error", "always"],
         "quotes": ["error", "double"],

@@ -3,7 +3,7 @@ const cucumber = require('cypress-cucumber-preprocessor').default
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:4000",
+    baseUrl: "http://localhost:4000", // front running port
     chromeWebSecurity: false,
     specPattern: "**/*.feature",
     supportFile: false,
